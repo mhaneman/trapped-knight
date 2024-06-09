@@ -1,1 +1,1 @@
-#Trapped Knight
+Trapped Knight

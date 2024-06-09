@@ -24,6 +24,8 @@ class Simulation:
 
 
     def run(self):
+        self.board.coord_vals[(0, 0)] *= -1 # update board
+
         for step in range(self.steps):
             if self.calc_move() is False:
                 print("STUCK! at: ", self.knight.curr_pos, " at step: ", step+1)
@@ -32,9 +34,10 @@ class Simulation:
 
     def static_graph(self):
         self.__graph_knight_history()
+        self.__graph_board_vals()
         
-        plt.xlim([-50, 50])
-        plt.ylim([-50, 50])
+        plt.xlim([-10, 10])
+        plt.ylim([-10, 10])
         plt.show()
 
     def __graph_knight_history(self):
@@ -43,13 +46,17 @@ class Simulation:
         plt.plot(x, y, marker="o", markeredgecolor="red", markersize=5, markerfacecolor="red")
 
 
-    def graph_board_vals(self):
+    def __graph_board_vals(self):
+        i = 0
         for key, val in self.board.coord_vals.items():
-           plt.text(key[0], key[1], str(val))
+            if i < 100:
+                plt.text(key[0], key[1], str(val))
+                i += 1
+            else:
+                break
 
+    def animate_graph(self):
 
-
-    def animate_graph(self): 
         fig, ax = plt.subplots()
         x0, y0 = self.knight.pos_history[0]
         line = ax.plot(x0, y0)[0]
@@ -86,8 +93,8 @@ if __name__ == "__main__":
     knight = NKnight(start_pos=(0, 0), n=0)
     board = Board(spiral_size=1000, negate_primes=False)
 
-    sim = Simulation(knight=knight, board=board, steps=2_200)
-    
+    sim = Simulation(knight=knight, board=board, steps=2200)
+
     sim.run()
     sim.animate_graph()
     

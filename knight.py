@@ -1,11 +1,16 @@
 from typing import Dict, Optional
+from abc import ABC, abstractmethod
 
-class Knight:
+class Knight(ABC):
 
     def __init__(self, start_pos: tuple = (0,0)) -> None:
         self.curr_pos = start_pos
         self.move_offsets = [(1, 2), (-1, 2), (1, -2), (-1, -2), (2, 1), (-2, 1), (2, -1), (-2, -1)]
-        self.pos_history = []
+        self.pos_history = [start_pos]
+
+    @abstractmethod
+    def find_next_square(self, coord_vals: Dict[tuple, int]) -> Optional[tuple]:
+        pass
 
 
 class NKnight(Knight):

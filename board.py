@@ -9,9 +9,9 @@ class Board:
 
     def gen_spiral(self, spiral_size, negate_primes):
         square_length = 1
-        dir = [0, 1]
+        dir = [1, 0]
         current_square = [0, 0]
-        current_value = 0
+        current_value = 1
 
         for _ in range(0, spiral_size):
             for _ in range(0, 2):
